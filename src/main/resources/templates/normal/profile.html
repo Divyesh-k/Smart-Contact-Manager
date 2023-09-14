@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Noramal User Dashboard</title>
+</head>
+<body>
+
+	<section>
+	
+		<div class="card mr-3 ml-3" style="margin-top : 17vh; position:absolute; width:76%;">
+		
+			<div class="card-body">
+			
+				<h1 class="text-center">Your Profile</h1>
+			
+				<div class="container text-center">
+				
+					<img style="height:200px; width:200px;" th:src = "@{'/img/' + ${user.imageUrl}}" class="my-profile-pic rounded-circle " title="profile photo"/>
+
+					<h3 class="mt-2 fore" th:text = "${user.name}"></h3>
+					
+					<p class="mt-1" th:text="${user.role}"></p>
+					
+					<p class="mt-1" th:text="${user.email}"></p>
+					
+					<p class="mt-1" th:text = "${user.about}" > </p>
+					
+					
+				</div>   		
+			
+			</div>
+			
+		</div>
+	
+	</section>
+	
+</body>
+</html>

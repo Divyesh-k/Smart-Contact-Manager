@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Noramal User Dashboard</title>
+</head>
+<body>
+
+	<section class="mt-4">
+	
+		<div class="card mr-3 ml-3" style="margin-top : 17vh; position:absolute; width:76%;">
+		
+			<div class="card-body">
+			
+				<div class="container text-center">
+				
+					<img style="height:200px; width:200px;" th:src = "@{'/img/' + ${contact.imageUrl}}" class="my-profile-pic rounded-circle " title="profile photo"/>
+				
+					<h3 class="mt-3"> <span th:text="${contact.name}" ></span>(<span th:text="${contact.secondName}" ></span>)</h3>
+					
+					<p class="mt-1" th:text="${contact.work}"></p>
+					<p class="mt-1" th:text="${contact.email}"></p>
+					<p class="mt-1" th:text="${contact.phone}"></p>
+					<p class="mt-1" th:text = "${contact.description}" > </p>
+					
+					
+				</div>
+				<div class="text-center mt-5">
+					    		
+					   
+						   <form th:action="@{'/user/update-contact/' + ${contact.cid}}" class="d-inline" method="POST">
+					    			<button type="submit" class="btn d-inline"><i class="fa-solid fa-pen-to-square mr-2" style="color:rgba(128, 0, 255);"></i></button>				    		
+					    	</form>
+						   <a href="#" th:onClick = "|deleteContact(${contact.cid})|"><i class="fa-sharp fa-solid fa-trash" style="color:red;"></i></a>
+				</div>    		
+			
+			</div>
+			
+		</div>
+	
+	</section>
+	
+</body>
+</html>

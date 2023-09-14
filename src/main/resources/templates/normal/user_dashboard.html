@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Normal User DashBoard</title>
+</head>
+<body>
+
+	<section>
+	
+		<div class="container" style="position:relative; margin-top:15vh;">
+		
+			<div class="card text-center">
+			
+				<div class="card-body text-center">
+				
+					<img style="height:400px; width:400px; margin:auto;" th:src = "@{/img/main-contact-dashboard.png}" class="d-block" title="profile photo"/>
+					
+					<a th:href="@{/user/add-contact}" class="back custom-color custom-font-color btn mt-5">Start Your Journey With the saving <i class="fa-solid fa-grid-horizontal"></i></a>
+				
+				</div>
+			
+			</div>
+		
+		</div>
+	
+	</section>
+	
+</body>
+</html>

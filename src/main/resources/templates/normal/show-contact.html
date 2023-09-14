@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title th:text = "${title}"></title>
+</head>
+<body>
+
+	<section>
+			<div class="card mt-5 h-10">
+			
+				<div class="card-body" th:if="${contact}">
+				
+					<h3 class="text-center">Not available</h3>
+				
+				</div>
+			
+				<div class="card-body" th:unless = "${contact}" style="margin-top : 6vh; position:absolute; width:98%; left:3vh;">
+					<h1 class="text-center">Your Contacts</h1>
+					
+							<!-- notification -->
+							<div th:if="${session.deletemsg}" th:classappend = "${'alert-' + session.deletemsg.type}" class="alert w-75 text-center " role="alert" style="margin-left : 20vh;">
+  								<span th:text = "${session.deletemsg.content}"></span>
+							</div>
+				
+								<th:block th:text="${#session.removeAttribute('deletemsg')}"></th:block>
+								
+								<!-- search functionality -->
+								
+								<div class="search-container my-4">
+								
+								 <i class='fa-solid fa-magnifying-glass' 
+								 	style = "position:absolute;
+								 			right:4vh;
+								 			top:1.5vh;
+								 			font-size : 2.5vh;"
+								 ></i>
+									
+									<input onkeyup = "search()" type="text" name="" id="search-input" class="form-control" placeholder="Search Your Contact"/>
+								
+									<div class="search-result">
+									
+										<!-- result is here -->
+									
+									</div>
+								</div>
+								
+					<table class="table mt-5">
+					  <thead class="custom-color custom-font-color">
+					    <tr>
+					      <th scope="col"><i class="fa-brands fa-squarespace"></i> ID</th>
+					      <th scope="col">Name</th>
+					      <th scope="col">Email</th>
+					      <th scope="col">Phone</th>
+					      <th scope="col">Action</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each = "c : ${contacts}">
+					    	<td scope = "row" th:text = "'SCM2020' + ${c.cid}" ></td>
+					    	<td >
+					   
+					    		<img th:src = "@{'/img/' + ${c.imageUrl}}" class="my-profile-pic rounded-circle " title="profile photo"/> 
+					    	
+					    	<span th:text = "${c.name}"></span>
+					    	
+					    	</td>
+					    	<td >
+					    		<a th:href = "@{'/user/'  + ${c.cid} + '/contact/'} " th:text = "${c.email}"></a>
+					    	</td>
+					    	<td th:text = "${c.phone}"></td>
+					    	<td>
+					    		<form th:action="@{'/user/update-contact/' + ${c.cid}}" class="d-inline" method="POST">
+					    			<button type="submit" class="btn d-inline"><i class="fa-solid fa-pen-to-square mr-2" style="color:rgba(128, 0, 255);"></i></button>				    		
+					    		</form>
+					    		
+					    		<a   href="#" th:onClick = "|deleteContact(${c.cid})|"><i class="fa-sharp fa-solid fa-trash" style="color:red;"></i></a>
+					    		
+					    		
+					    	</td>
+					    </tr>
+					  </tbody>
+					</table>
+					
+				  <ul class="pagination justify-content-center">
+				  
+				    <li class="page-item" th:if = " ${currentPage != 0}">
+				      <a class="page-link" 
+				      th:href="@{'/user/show-contact/' + ${currentPage-1}}"
+				       tabindex="-1">Previous</a>
+				    </li>
+				    
+				    <li th:classappend = "${currentPage == i-1?'active':''}"  
+				    	th:each="i : ${#numbers.sequence(1 , totalPages)}" 
+				    	class="back">
+				    	<a class="page-link fore" 
+				    	th:href="@{'/user/show-contact/' + ${i-1}}">
+				    	<span th:text = "${i}"></span></a></li>
+				    
+				    <li th:if = " ${currentPage+1 != totalPages}"
+				    class="back">
+				      <a class="page-link fore" 
+						th:href="@{'/user/show-contact/' + ${currentPage+1}}"
+						>Next</a>
+				    </li>
+				  </ul>
+					
+				<div class="text-center" th:if = "${#lists.isEmpty(contacts)}">
+					<h1><i class="fa fa-battery-empty" style="color:red;"></i></h1>
+						<h3 class="red">Contact List is Empty!!!</h3>
+				</div>
+					
+				
+				<a th:href="@{/user/add-contact}" class="btn base-color fore mt-3 text-center " style = "margin-left:43%;">Add Contacts <i class="fa fa-arrow-right"></i></a>
+				</div>
+			</div>
+	</section>
+	
+</body>
+</html>
